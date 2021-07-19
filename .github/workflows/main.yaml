@@ -59,7 +59,7 @@ jobs:
         github.event_name == 'push'
         && github.ref == 'refs/heads/main'
       ))
-      && github.repository == 'rozsasarpi/zandbak'
+      && github.repository == 'rozsasarpi/zandbak' }}$
     concurrency: release
     needs: [ lint_and_type_check, test ]
 
