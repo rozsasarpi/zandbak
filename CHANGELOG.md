@@ -2,6 +2,9 @@
 
 <!--next-version-placeholder-->
 
+## v0.2.2 (2021-07-19)
+
+
 ## v0.2.1 (2021-07-19)
 ### Fix
 * To test version bump and pypi release ([`90ec51b`](https://github.com/rozsasarpi/zandbak/commit/90ec51bf7e87f5d57a80cc42f11d63ce9276042f))
