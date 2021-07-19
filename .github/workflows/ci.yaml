@@ -37,8 +37,7 @@ jobs:
           python-version: 3.8
       - name: Install package with dependencies
         run: |
-          pip install -e .[tests]
-          coverage run -m pytest && coverage report -m
+          pip install .[tests]
       - name: Test with pytest
         run: |
           coverage run -m pytest && coverage report -m
