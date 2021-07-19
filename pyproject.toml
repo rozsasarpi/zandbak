@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [tool.semantic_release]
 version_variable = ["zandbak/__init__.py:__version__"]
-branch = "release_test"
+branch = "main"
 
 [tool.coverage.run]
 source = ["zandbak"]
