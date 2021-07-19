@@ -10,7 +10,7 @@ on:
     branches: [ main ]
 
 jobs:
-  lint_check:
+  lint_and_type_check:
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
@@ -22,6 +22,6 @@ jobs:
       - name: Install dependencies
         run: |
             pip install pre-commit
-      - name: Lint
+      - name: Lint and type check
         run: |
             pre-commit run --all-files --verbose --show-diff-on-failure
