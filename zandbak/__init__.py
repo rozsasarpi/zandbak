@@ -4,7 +4,7 @@ from typing import Iterable, Union
 
 import numpy as np
 
-__version__ = "0.0.0"
+__version__ = "0.1.0"
 
 REAL_SCALAR = Union[int, float]
 REAL_VECT = Union[REAL_SCALAR, Iterable, np.ndarray]
