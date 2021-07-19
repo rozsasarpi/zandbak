@@ -49,11 +49,11 @@ jobs:
     needs: [ lint_and_type_check, test ]
     env:
       MERGE_INTO_MAIN: ${{ github.event_name == 'pull_request'
-        && github.event.pull_request.base.ref == 'main'
+        && github.event.pull_request.base.ref == 'release_test'
         && github.event.action == 'closed'
         && github.event.pull_request.merged == true }}
       PUSH_TO_MAIN: ${{ github.event_name == 'push'
-        && github.ref == 'refs/heads/master'}}
+        && github.ref == 'refs/heads/release_test'}} # fot testing
       ORIGINAL_REPO: ${{ github.repository == 'rozsasarpi/zandbak' }}
     if: ${{ (env.MERGE_INTO_MAIN || env.PUSH_TO_MAIN) && env.ORIGINAL_REPO }}
 
