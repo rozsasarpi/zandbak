@@ -1,0 +1,62 @@
+# This workflow will install Python dependencies, run tests and lint with a single version of Python
+# For more information see: https://help.github.com/actions/language-and-framework-guides/using-python-with-github-actions
+
+name: CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  # Always run
+  lint_and_type_check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Python 3.8
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+      - name: Install dependencies
+        run: |
+          pip install pre-commit
+      - name: Lint and type check
+        run: |
+          pre-commit run --all-files --verbose --show-diff-on-failure
+
+  # Always run
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Python 3.8
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+      - name: Install package with dependencies
+        run: |
+          pip install .[tests]
+      - name: Test with pytest
+        run: |
+          coverage run -m pytest && coverage report -m
+
+  # Release only when pushed to `main`
+  release:
+    name: Semantic Release
+    runs-on: ubuntu-latest
+    concurrency: release
+    needs: [ lint_and_type_check, test ]
+    if: github.event_name == 'push' && github.ref == 'refs/heads/master' && github.repository == 'rozsasarpi/zandbak'
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: Fetch master
+        run: git fetch --prune origin +refs/heads/master:refs/remotes/origin/master
+      - name: Python Semantic Release
+        uses: relekang/python-semantic-release@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          pypi_token: ${{ secrets.PYPI_TOKEN }}
