@@ -55,15 +55,16 @@ jobs:
       PUSH_TO_MAIN: ${{ github.event_name == 'push'
         && github.ref == 'refs/heads/release_test'}} # fot testing
       ORIGINAL_REPO: ${{ github.repository == 'rozsasarpi/zandbak' }}
-    if: ${{ (env.MERGE_INTO_MAIN || env.PUSH_TO_MAIN) && env.ORIGINAL_REPO }}
 
     steps:
       - uses: actions/checkout@v2
         with:
           fetch-depth: 0
       - name: Fetch master
+        if: ${{ (env.MERGE_INTO_MAIN || env.PUSH_TO_MAIN) && env.ORIGINAL_REPO }}
         run: git fetch --prune origin +refs/heads/master:refs/remotes/origin/master
       - name: Python Semantic Release
+        if: ${{ (env.MERGE_INTO_MAIN || env.PUSH_TO_MAIN) && env.ORIGINAL_REPO }}
         uses: relekang/python-semantic-release@master
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
