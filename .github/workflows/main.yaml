@@ -43,14 +43,10 @@ jobs:
         run: |
           coverage run -m pytest && coverage report -m
 
-  # Release only when pushed to `main`
+  # Release only when pushed to or merged into `main`
   release:
     name: Semantic Release
     runs-on: ubuntu-latest
-#    if: ${{ github.ref == 'refs/heads/main' }}
-#    if: |
-#      github.event_name == 'push' &&
-#      github.ref == 'refs/heads/main'
     if: |
       (
         (
@@ -65,19 +61,6 @@ jobs:
         )
       ) &&
       github.repository == 'rozsasarpi/zandbak'
-#    if: ${{ (
-#      (
-#        github.event_name == 'pull_request'
-#        && github.event.pull_request.base.ref == 'main'
-#        && github.event.action == 'closed'
-#        && github.event.pull_request.merged == true
-#      )
-#      ||
-#      (
-#        github.event_name == 'push'
-#        && github.ref == 'refs/heads/main'
-#      ))
-#      && github.repository == 'rozsasarpi/zandbak' }}$
     concurrency: release
     needs: [ lint_and_type_check, test ]
 
@@ -88,28 +71,6 @@ jobs:
       - name: Fetch main
         run: |
           git fetch --prune origin +refs/heads/main:refs/remotes/origin/main
-      - name: Dump Github context
-        env:
-          GITHUB_CONTEXT: ${{ toJSON(github) }}
-        run: echo "$GITHUB_CONTEXT"
-      - name: If test
-        env:
-          RUN_TEST: ${{
-            (
-              (
-                github.event_name == 'pull_request'
-                && github.event.pull_request.base.ref == 'main'
-                && github.event.action == 'closed'
-                && github.event.pull_request.merged == true
-              )
-              ||
-              (
-                github.event_name == 'push'
-                && github.ref == 'refs/heads/main'
-              )
-            )
-            && github.repository == 'rozsasarpi/zandbak' }}$
-        run: echo "$RUN_TEST"
       - name: Python Semantic Release
         uses: relekang/python-semantic-release@master
         with:
