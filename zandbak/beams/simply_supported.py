@@ -103,7 +103,7 @@ def hinged_hinged_beam_under_end_moment(
     load_intensity: Union[int, float],
     span_length: Union[int, float],
     flexural_stiffness: Union[int, float, Iterable, np.ndarray],
-):
+) -> Tuple[np.ndarray, np.ndarray, np.ndarray]:
     """
 
     Reference: https://mechanicalc.com/reference/beam-deflection-tables
