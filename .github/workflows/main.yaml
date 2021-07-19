@@ -56,7 +56,7 @@ jobs:
       - name: Fetch master
         run: git fetch --prune origin +refs/heads/master:refs/remotes/origin/master
       - name: Python Semantic Release
-        uses: rozsasarpi/zandbak@master
+        uses: relekang/python-semantic-release@master
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           pypi_token: ${{ secrets.PYPI_TOKEN }}
