@@ -15,6 +15,8 @@ def hinged_hinged_beam_under_point_force(
     flexural_stiffness: REAL_VECT,
 ) -> Tuple[np.ndarray, np.ndarray, np.ndarray]:
     """
+    Deflection, rotation, and bending moment of a hinged-hinged single span beam with a
+    single concentrated force.
 
     Reference: Figure 8;
     https://www.awc.org/pdf/codes-standards/publications/design-aids/AWC-DA6-BeamFormulas-0710.pdf  # noqa E501
