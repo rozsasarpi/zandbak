@@ -1,17 +1,19 @@
 """Simply supported beams.
 """
-from typing import Iterable, Union
+from typing import Iterable, Tuple, Union
 
 import numpy as np
 
+from zandbak import REAL_SCALAR, REAL_VECT
+
 
 def hinged_hinged_beam_under_point_force(
-    position_from_left_end: Union[int, float, Iterable, np.ndarray],
-    load_intensity: Union[int, float],
-    load_position_from_left_end: Union[int, float],
-    span_length: Union[int, float],
-    flexural_stiffness: Union[int, float, Iterable, np.ndarray],
-):
+    position_from_left_end: REAL_VECT,
+    load_intensity: REAL_SCALAR,
+    load_position_from_left_end: REAL_SCALAR,
+    span_length: REAL_SCALAR,
+    flexural_stiffness: REAL_VECT,
+) -> Tuple[np.ndarray, np.ndarray, np.ndarray]:
     """
 
     Reference: Figure 8;
