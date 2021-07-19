@@ -5,12 +5,10 @@ name: CI
 
 on:
   push:
-    branches: [ main ]
   pull_request:
-    branches: [ main ]
 
 jobs:
-
+  # Always run
   lint_and_type_check:
     runs-on: ubuntu-latest
     timeout-minutes: 5
@@ -27,6 +25,7 @@ jobs:
         run: |
           pre-commit run --all-files --verbose --show-diff-on-failure
 
+  # Always run
   test:
     runs-on: ubuntu-latest
     steps:
@@ -41,3 +40,23 @@ jobs:
       - name: Test with pytest
         run: |
           coverage run -m pytest && coverage report -m
+
+  # Release only when pushed to `main`
+  release:
+    name: Semantic Release
+    runs-on: ubuntu-latest
+    concurrency: release
+    needs: [ lint_and_type_check, test ]
+    if: github.event_name == 'push' && github.ref == 'refs/heads/master' && github.repository == 'rozsasarpi/zandbak'
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: Fetch master
+        run: git fetch --prune origin +refs/heads/master:refs/remotes/origin/master
+      - name: Python Semantic Release
+        uses: rozsasarpi/zandbak@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          pypi_token: ${{ secrets.PYPI_TOKEN }}

@@ -2,5 +2,8 @@
 requires = ["setuptools>=34.4", "wheel"]
 build-backend = "setuptools.build_meta"
 
+[tool.semantic_release]
+version_variable = ["zandbak/__init__.py:__version__"]
+
 [tool.coverage.run]
 source = ["zandbak"]
