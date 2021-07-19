@@ -15,6 +15,7 @@ def hinged_hinged_beam_under_point_force(
     flexural_stiffness: REAL_VECT,
 ) -> Tuple[np.ndarray, np.ndarray, np.ndarray]:
     """
+    Deflection, rotation, and bending moment of a hinged-hinged single span beam.
 
     Reference: Figure 8;
     https://www.awc.org/pdf/codes-standards/publications/design-aids/AWC-DA6-BeamFormulas-0710.pdf  # noqa E501
@@ -171,7 +172,7 @@ def hinged_clamped_beam_under_point_force(
     load_position_from_hinged_end: Union[int, float],
     span_length: Union[int, float],
     flexural_stiffness: Union[int, float, Iterable, np.ndarray],
-):
+) -> Tuple[np.ndarray, np.ndarray, np.ndarray]:
     """
 
     Reference: Figure 17;
