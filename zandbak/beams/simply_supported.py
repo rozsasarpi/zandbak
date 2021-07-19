@@ -15,7 +15,7 @@ def hinged_hinged_beam_under_point_force(
     """
 
     Reference: Figure 8;
-    https://www.awc.org/pdf/codes-standards/publications/design-aids/AWC-DA6-BeamFormulas-0710.pdf  # noqa
+    https://www.awc.org/pdf/codes-standards/publications/design-aids/AWC-DA6-BeamFormulas-0710.pdf  # noqa E501
 
     Args:
         position_from_left_end: position(s) from the hinged end where the internal
@@ -173,7 +173,7 @@ def hinged_clamped_beam_under_point_force(
     """
 
     Reference: Figure 17;
-    https://www.awc.org/pdf/codes-standards/publications/design-aids/AWC-DA6-BeamFormulas-0710.pdf
+    https://www.awc.org/pdf/codes-standards/publications/design-aids/AWC-DA6-BeamFormulas-0710.pdf  # noqa E501
 
     Args:
         position_from_left_end: position(s) from the hinged end where the internal
