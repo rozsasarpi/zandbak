@@ -70,7 +70,10 @@ jobs:
       - name: Fetch main
         run: |
           git fetch --prune origin +refs/heads/main:refs/remotes/origin/main
-          echo $MERGE_INTO_MAIN
+      - name: Dump Github context
+        env:
+          GITHUB_CONTEXT: ${{ toJSON(github) }}
+        run: echo "$GITHUB_CONTEXT"
       - name: Python Semantic Release
         uses: relekang/python-semantic-release@master
         with:
