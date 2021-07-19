@@ -25,7 +25,7 @@ repos:
   rev: v0.910
   hooks:
     - id: mypy
-      args: ['--verbose', '--package=zandbak']
+      args: ['zandbak']
 
 - repo: https://gitlab.com/pycqa/flake8
   rev: 3.9.2
