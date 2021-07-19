@@ -62,7 +62,7 @@ jobs:
           fetch-depth: 0
       - name: Fetch master
         if: ${{ (env.MERGE_INTO_MAIN || env.PUSH_TO_MAIN) && env.ORIGINAL_REPO }}
-        run: git fetch --prune origin +refs/heads/master:refs/remotes/origin/master
+        run: git fetch --prune origin +refs/heads/release_test:refs/remotes/origin/release_test
       - name: Python Semantic Release
         if: ${{ (env.MERGE_INTO_MAIN || env.PUSH_TO_MAIN) && env.ORIGINAL_REPO }}
         uses: relekang/python-semantic-release@master
