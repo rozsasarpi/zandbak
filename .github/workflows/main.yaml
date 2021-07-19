@@ -48,9 +48,23 @@ jobs:
     name: Semantic Release
     runs-on: ubuntu-latest
 #    if: ${{ github.ref == 'refs/heads/main' }}
+#    if: |
+#      github.event_name == 'push' &&
+#      github.ref == 'refs/heads/main'
     if: |
-      github.event_name == 'push' &&
-      github.ref == 'refs/heads/main'
+      (
+        (
+          github.event_name == 'pull_request'
+          && github.event.pull_request.base.ref == 'main'
+          && github.event.action == 'closed'
+          && github.event.pull_request.merged == true
+        ) ||
+        (
+          github.event_name == 'push'
+          && github.ref == 'refs/heads/main'
+        )
+      ) &&
+      github.repository == 'rozsasarpi/zandbak'
 #    if: ${{ (
 #      (
 #        github.event_name == 'pull_request'
