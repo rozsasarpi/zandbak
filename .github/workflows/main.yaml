@@ -65,12 +65,13 @@ jobs:
           # add them to the github env for later usage
           echo "COVERAGE_PCT=$(echo $COVERAGE_PCT)" >> $GITHUB_ENV
           echo "COVERAGE_COL=$(echo $COVERAGE_COL)" >> $GITHUB_ENV
+          echo "BRANCH_NAME=$(echo ${github.ref##*/})" >> $GITHUB_ENV
       - name: Upload coverage to gist
         uses: schneegans/dynamic-badges-action@v1.1.0
         with:
           auth: ${{ secrets.GIST_SECRET }}
           gistID: da9e3419b54a0daf6fe07b934f37f837
-          filename: main_coverage.json
+          filename: zandbak_${{ env.BRANCH_NAME }}_coverage.json
           label: coverage
           message: ${{ env.COVERAGE_PCT }}
           color: ${{ env.COVERAGE_COL }}
