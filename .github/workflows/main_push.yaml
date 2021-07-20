@@ -1,32 +1,16 @@
-# This workflow will install Python dependencies, run tests and lint with a single version of Python
-# For more information see: https://help.github.com/actions/language-and-framework-guides/using-python-with-github-actions
+# This workflow runs only when a `push` is made to `main`. No direct `push` is allowed,
+# all changes to `main` should come from `pull request`s. A `pull request` has a
+# `push` event that will trigger this workflow.
 
-name: CI
+name: main push -- CI
 
 on:
   push:
-  pull_request:
+    branches:
+      - main
 
 jobs:
-  # Lint and type checking [always run]
-  lint_and_type_check:
-    name: Lint and type check
-    runs-on: ubuntu-latest
-    timeout-minutes: 5
-    steps:
-      - uses: actions/checkout@v2
-      - name: Set up Python 3.8
-        uses: actions/setup-python@v2
-        with:
-          python-version: 3.8
-      - name: Install dependencies
-        run: |
-          pip install pre-commit
-      - name: Lint and type check
-        run: |
-          pre-commit run --all-files --verbose --show-diff-on-failure
-
-  # Unit test and coverage [always run]
+  # Unit test and coverage
   test:
     name: Test
     runs-on: ubuntu-latest
@@ -82,26 +66,13 @@ jobs:
           message: ${{ env.COVERAGE_PCT }}
           color: ${{ env.COVERAGE_COL }}
 
-  # Release [only when pushed to or merged into `main`]
+  # Release to Github and PyPi
   release:
     name: Semantic Release
     runs-on: ubuntu-latest
-    if: |
-      (
-        (
-          github.event_name == 'pull_request'
-          && github.event.pull_request.base.ref == 'main'
-          && github.event.action == 'closed'
-          && github.event.pull_request.merged == true
-        ) ||
-        (
-          github.event_name == 'push'
-          && github.ref == 'refs/heads/main'
-        )
-      ) &&
-      github.repository == 'rozsasarpi/zandbak'
+    if: github.repository == 'rozsasarpi/zandbak'
     concurrency: release
-    needs: [ lint_and_type_check, test ]
+    needs: [ test ]
 
     steps:
       - uses: actions/checkout@v2
