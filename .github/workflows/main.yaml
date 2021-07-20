@@ -41,22 +41,30 @@ jobs:
           pip install .[tests]
       - name: Test with pytest
         run: |
-          coverage run -m pytest && coverage report -m
           # grab the coverage output and also print it to the sreen
-          COVERAGE_REPORT=$(coverage run -m pytest && coverage report -m)
+          COVERAGE_REPORT=$(coverage run -m pytest && coverage report -m | \
+            tee /dev/stderr)
           # extract the percentage of the total coverage, e.g. `75%`
           COVERAGE_PCT=$(echo $COVERAGE_REPORT | \
             grep -oP "TOTAL\s+\d+\s+\d+\s+(\d+%)" | grep -oP "\d+%")
-          # get a matching color
+          # get an indicative color
           COVERAGE_NUM=$(echo $COVERAGE_REPORT | grep -oP "\d")
-          if (( $COVERAGE_NUM < 50 )); then
+          if (( $COVERAGE_NUM <= 50 )); then
             COVERAGE_COL="red"
-          else
+          elif (( $COVERAGE_NUM <= 60 )); then
+            COVERAGE_COL="orange"
+          elif (( $COVERAGE_NUM <= 70 )); then
+            COVERAGE_COL="yellow"
+          elif (( $COVERAGE_NUM <= 80 )); then
+            COVERAGE_COL="yellowgreen"
+          elif (( $COVERAGE_NUM <= 90 )); then
             COVERAGE_COL="green"
+          else
+            COVERAGE_COL="brightgreen"
           fi
           # add them to the github env for later usage
           echo "COVERAGE_PCT=$(echo $COVERAGE_PCT)" >> $GITHUB_ENV
-          echo "COVERAGE_COL=$(echo COVERAGE_COL)" >> $GITHUB_ENV
+          echo "COVERAGE_COL=$(echo $COVERAGE_COL)" >> $GITHUB_ENV
       - name: Upload coverage to gist
         uses: schneegans/dynamic-badges-action@v1.1.0
         with:
