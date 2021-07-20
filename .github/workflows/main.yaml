@@ -62,11 +62,13 @@ jobs:
           else
             COVERAGE_COL="brightgreen"
           fi
+          # active branch name
+          BRANCH_NAME=$(github.ref | grep -oP "(?<=refs/heads/).*")
           # add them to the github env for later usage
           echo "COVERAGE_PCT=$(echo $COVERAGE_PCT)" >> $GITHUB_ENV
           echo "COVERAGE_COL=$(echo $COVERAGE_COL)" >> $GITHUB_ENV
-          echo "BRANCH_NAME=$(echo ${{ github.ref##*/ }})" >> $GITHUB_ENV
-          echo ${{ github.ref##*/ }}
+          echo "BRANCH_NAME=$(echo $BRANCH_NAME)" >> $GITHUB_ENV
+          echo $BRANCH_NAME
       - name: Upload coverage to gist
         uses: schneegans/dynamic-badges-action@v1.1.0
         with:
