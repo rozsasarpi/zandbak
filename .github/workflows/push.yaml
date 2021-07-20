@@ -1,15 +1,29 @@
-# This workflow runs only when a `push` is made to `main`. No direct `push` is allowed,
-# all changes to `main` should come from `pull request`s. A `pull request` has a
-# `push` event that will trigger this workflow.
+# This workflow runs on a `push` to any branch
 
-name: main push -- CI
+name: all push -- CI
 
 on:
   push:
-    branches:
-      - main
 
 jobs:
+  # Lint and type checking
+  lint_and_type_check:
+    name: Lint and type check
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Python 3.8
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+      - name: Install dependencies
+        run: |
+          pip install pre-commit
+      - name: Lint and type check
+        run: |
+          pre-commit run --all-files --verbose --show-diff-on-failure
+
   # Unit test and coverage
   test:
     name: Test
@@ -47,10 +61,7 @@ jobs:
             COVERAGE_COL="brightgreen"
           fi
           # active branch name
-          echo "yup"
-          echo "${GITHUB_REF#refs/heads/}"
           BRANCH_NAME=$(echo ${GITHUB_REF#refs/heads/})
-          echo $BRANCH_NAME
           # add them to the github env for later usage
           echo "COVERAGE_PCT=$(echo $COVERAGE_PCT)" >> $GITHUB_ENV
           echo "COVERAGE_COL=$(echo $COVERAGE_COL)" >> $GITHUB_ENV
@@ -66,11 +77,11 @@ jobs:
           message: ${{ env.COVERAGE_PCT }}
           color: ${{ env.COVERAGE_COL }}
 
-  # Release to Github and PyPi
+  # Release to Github and PyPi [only for `main`]
   release:
     name: Semantic Release
     runs-on: ubuntu-latest
-    if: github.repository == 'rozsasarpi/zandbak'
+    if: github.ref == 'refs/heads/main' && github.repository == 'rozsasarpi/zandbak'
     concurrency: release
     needs: [ test ]
 
