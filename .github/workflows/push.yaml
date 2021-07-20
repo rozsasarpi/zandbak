@@ -83,7 +83,7 @@ jobs:
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main' && github.repository == 'rozsasarpi/zandbak'
     concurrency: release
-    needs: [ test ]
+    needs: [ lint_and_type_check, test ]
 
     steps:
       - uses: actions/checkout@v2
