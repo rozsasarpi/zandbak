@@ -8,7 +8,7 @@ on:
   pull_request:
 
 jobs:
-  # Always run
+  # Lint and type checking [always run]
   lint_and_type_check:
     name: Lint and type check
     runs-on: ubuntu-latest
@@ -26,7 +26,7 @@ jobs:
         run: |
           pre-commit run --all-files --verbose --show-diff-on-failure
 
-  # Always run
+  # Unit test and coverage [always run]
   test:
     name: Test
     runs-on: ubuntu-latest
@@ -42,17 +42,23 @@ jobs:
       - name: Test with pytest
         run: |
           coverage run -m pytest && coverage report -m
+          # grap the coverage output and also print it to the sreen
+          COVERAGE_REPORT=$(coverage run -m pytest && coverage report -m | tee /dev/tty)
+          # extract the percentage of the total coverage, e.g. `75%`
+          COVERAGE_PCT=$(echo $COVERAGE_REPORT | grep -oP "TOTAL\s+\d+\s+\d+\s+(\d+%)" | grep -oP "\d+%")
+          # add it to the github env for later usage
+          echo $COVERAGE_PCT >> $GITHUB_ENV
       - name: Upload coverage to gist
         uses: schneegans/dynamic-badges-action@v1.1.0
         with:
           auth: ${{ secrets.GIST_SECRET }}
           gistID: da9e3419b54a0daf6fe07b934f37f837
-          filename: test.json
-          label: Hello
-          message: World
+          filename: main_coverage.json
+          label: coverage
+          message: ${{ env.COVERAGE_PCT }}
           color: orange
 
-  # Release only when pushed to or merged into `main`
+  # Release [only when pushed to or merged into `main`]
   release:
     name: Semantic Release
     runs-on: ubuntu-latest
