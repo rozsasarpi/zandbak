@@ -4,8 +4,6 @@ name: all push -- CI
 
 on:
   push:
-    branches:
-      - '*'
 
 jobs:
   # Lint and type checking
