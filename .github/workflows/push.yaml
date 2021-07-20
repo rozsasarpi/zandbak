@@ -1,6 +1,6 @@
 # This workflow runs on a `push` to any branch
 
-name: all push -- CI
+name: CI
 
 on:
   push:
