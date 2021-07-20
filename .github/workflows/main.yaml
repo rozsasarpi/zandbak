@@ -47,7 +47,7 @@ jobs:
           # extract the percentage of the total coverage, e.g. `75` (without %)
           COVERAGE_PCT=$(echo $COVERAGE_REPORT | grep -oP "TOTAL\s+\d+\s+\d+\s+(\d+%)" | grep -oP "\d+%" | grep -oP "\d")
           # add it to the github env for later usage
-          echo $COVERAGE_PCT >> $GITHUB_ENV
+          echo "COVERAGE_PCT=$(echo $COVERAGE_PCT)" >> $GITHUB_ENV
       - name: Upload coverage to gist
         uses: schneegans/dynamic-badges-action@v1.1.0
         with:
