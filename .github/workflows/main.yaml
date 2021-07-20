@@ -43,7 +43,7 @@ jobs:
         run: |
           coverage run -m pytest && coverage report -m
           # grap the coverage output and also print it to the sreen
-          COVERAGE_REPORT=$(coverage run -m pytest && coverage report -m | tee /dev/tty)
+          COVERAGE_REPORT=$(coverage run -m pytest && coverage report -m | tee /dev/stderr)
           # extract the percentage of the total coverage, e.g. `75%`
           COVERAGE_PCT=$(echo $COVERAGE_REPORT | grep -oP "TOTAL\s+\d+\s+\d+\s+(\d+%)" | grep -oP "\d+%")
           # add it to the github env for later usage
@@ -86,7 +86,7 @@ jobs:
       - name: Fetch main
         run: |
           git fetch --prune origin +refs/heads/main:refs/remotes/origin/main
-      - name: Python Semantic Release
+      - name: Python semantic release
         uses: relekang/python-semantic-release@master
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
