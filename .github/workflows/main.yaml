@@ -48,16 +48,16 @@ jobs:
           COVERAGE_PCT=$(echo $COVERAGE_REPORT | \
             grep -oP "TOTAL\s+\d+\s+\d+\s+(\d+%)" | grep -oP "\d+%")
           # get an indicative color
-          COVERAGE_NUM=$(echo $COVERAGE_PCT | grep -oP "\d")
-          if [[ "$COVERAGE_NUM" -lt 50 ]]; then
+          COVERAGE_NUM=$(echo $COVERAGE_PCT | grep -oP "\d+")
+          if (( COVERAGE_NUM <= 50 )); then
             COVERAGE_COL="red"
-          elif [[ "$COVERAGE_NUM" -lt 60 ]]; then
+          elif (( COVERAGE_NUM <= 60 )); then
             COVERAGE_COL="orange"
-          elif [[ "$COVERAGE_NUM" -lt 70 ]]; then
+          elif (( COVERAGE_NUM <= 70 )); then
             COVERAGE_COL="yellow"
-          elif [[ "$COVERAGE_NUM" -lt 80 ]]; then
+          elif (( COVERAGE_NUM <= 80 )); then
             COVERAGE_COL="yellowgreen"
-          elif [[ "$COVERAGE_NUM" -lt 90 ]]; then
+          elif (( COVERAGE_NUM <= 90 )); then
             COVERAGE_COL="green"
           else
             COVERAGE_COL="brightgreen"
