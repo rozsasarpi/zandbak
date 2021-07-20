@@ -173,7 +173,7 @@ def hinged_clamped_beam_under_point_force(
     load_position_from_hinged_end: Union[int, float],
     span_length: Union[int, float],
     flexural_stiffness: Union[int, float, Iterable, np.ndarray],
-):
+) -> Tuple[np.ndarray, np.ndarray, np.ndarray]:
     """
 
     Reference: Figure 17;

@@ -2,6 +2,13 @@
 
 <!--next-version-placeholder-->
 
+## v0.2.9 (2021-07-19)
+### Fix
+* **beams:** Add return type hint (dummy for version number bump) ([`abc3a66`](https://github.com/rozsasarpi/zandbak/commit/abc3a6699392893bba8697b5161cc820274942e6))
+
+### Documentation
+* **beams:** Improve `simply_supported` docs ([`6047ddf`](https://github.com/rozsasarpi/zandbak/commit/6047ddfcb95dbea08c9cc8df7e62a64acf21a2e3))
+
 ## v0.2.8 (2021-07-19)
 
 
