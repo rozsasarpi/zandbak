@@ -42,6 +42,15 @@ jobs:
       - name: Test with pytest
         run: |
           coverage run -m pytest && coverage report -m
+      - name: Upload coverage to gist
+        uses: schneegans/dynamic-badges-action@v1.1.0
+        with:
+          auth: ${{ secrets.GIST_SECRET }}
+          gistID: da9e3419b54a0daf6fe07b934f37f837
+          filename: test.json
+          label: Hello
+          message: World
+          color: orange
 
   # Release only when pushed to or merged into `main`
   release:
