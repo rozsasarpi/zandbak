@@ -10,4 +10,4 @@ A sandbox python repository for testing GitHub features, CI pipelines, and pytho
 packages.
 
 Some structural mechanics examples are used as dummy code:
- * response of linear elastic beams.
+ * computing the responses of linear elastic beams.
