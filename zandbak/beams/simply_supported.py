@@ -19,7 +19,7 @@ def hinged_hinged_beam_under_point_force(
     single concentrated force.
 
     Reference: Figure 8;
-    https://www.awc.org/pdf/codes-standards/publications/design-aids/AWC-DA6-BeamFormulas-0710.pdf  # noqa E501
+    https://www.awc.org/pdf/codes-standards/publications/design-aids/AWC-DA6-BeamFormulas-0710.pdf
 
     Args:
         position_from_left_end: position(s) from the hinged end where the internal
@@ -32,9 +32,11 @@ def hinged_hinged_beam_under_point_force(
             vector as well (`n` elements).
 
     Returns:
-        d_x: vertical translation, 2d numpy array of `n` x `m`.
-        phi_x: rotation, 2d numpy array of `n` x `m`.
-        m_x: bending moment, 2d numpy array of `n` x `m`.
+        vertical translation, 2d numpy array of `n` x `m`.
+
+        rotation, 2d numpy array of `n` x `m`.
+
+        bending moment, 2d numpy array of `n` x `m`.
 
     Structural responses at `position_from_left_end`.
     """
@@ -121,9 +123,11 @@ def hinged_hinged_beam_under_end_moment(
             vector as well (`n` elements).
 
     Returns:
-        d_x: vertical translation, 2d numpy array of `n` x `m`.
-        phi_x: rotation, 2d numpy array of `n` x `m`.
-        m_x: bending moment, 2d numpy array of `n` x `m`.
+        vertical translation, 2d numpy array of `n` x `m`.
+
+        rotation, 2d numpy array of `n` x `m`.
+
+        bending moment, 2d numpy array of `n` x `m`.
 
     Structural responses at `position_from_left_end`.
     """
@@ -177,7 +181,7 @@ def hinged_clamped_beam_under_point_force(
     """
 
     Reference: Figure 17;
-    https://www.awc.org/pdf/codes-standards/publications/design-aids/AWC-DA6-BeamFormulas-0710.pdf  # noqa E501
+    https://www.awc.org/pdf/codes-standards/publications/design-aids/AWC-DA6-BeamFormulas-0710.pdf
 
     Args:
         position_from_left_end: position(s) from the hinged end where the internal
@@ -190,9 +194,11 @@ def hinged_clamped_beam_under_point_force(
             vector as well (`n` elements).
 
     Returns:
-        d_x: vertical translation, 2d numpy array of `n` x `m`.
-        phi_x: rotation, 2d numpy array of `n` x `m`.
-        m_x: bending moment, 2d numpy array of `n` x `m`.
+        vertical translation, 2d numpy array of `n` x `m`.
+
+        rotation, 2d numpy array of `n` x `m`.
+
+        bending moment, 2d numpy array of `n` x `m`.
 
     Structural responses at `position_from_left_end`.
     """
@@ -292,12 +298,13 @@ def clamped_clamped_beam_under_point_force(
             vector as well (`n` elements).
 
     Returns:
-        d_x: vertical translation, 2d numpy array of `n` x `m`.
-        phi_x: rotation, 2d numpy array of `n` x `m`.
-        m_x: bending moment, 2d numpy array of `n` x `m`.
+        vertical translation, 2d numpy array of `n` x `m`.
+
+        rotation, 2d numpy array of `n` x `m`.
+
+        bending moment, 2d numpy array of `n` x `m`.
 
     Structural responses at `position_from_left_end`.
-
     """
     # ----------------------------------------------------
     # PRE-PROCESS
