@@ -1,9 +1,13 @@
-# This workflow runs on a `push` to any branch
+# This workflow runs on
+#  * a `push` to any branch
+#  * a schedule to check compatibility with potentially updated dependencies
 
 name: CI
 
 on:
   push:
+  schedule:
+    - cron: '18 11 * * *'
 
 jobs:
   # Lint and type checking
