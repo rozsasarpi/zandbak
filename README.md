@@ -7,7 +7,7 @@
 
 
 A sandbox python repository for testing GitHub features, CI pipelines, and python
-packages.
+packaging.
 
 Some structural mechanics examples are used as dummy code:
  * computing the responses of linear elastic beams.
