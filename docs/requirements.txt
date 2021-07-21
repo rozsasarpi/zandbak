@@ -1,0 +1,5 @@
+# Sphinx documentation dependencies
+sphinx >=3, <4
+sphinx-copybutton<1
+myst-parser<1
+furo
