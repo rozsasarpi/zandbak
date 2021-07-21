@@ -28,12 +28,16 @@ jobs:
   test:
     name: Test
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: [ 3.6, 3.7, 3.8, 3.9 ]
+
     steps:
       - uses: actions/checkout@v2
-      - name: Set up Python 3.8
+      - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v2
         with:
-          python-version: 3.8
+          python-version: ${{ matrix.python-version }}
       - name: Install package with dependencies
         run: |
           pip install .[tests]
@@ -45,8 +49,10 @@ jobs:
           # extract the percentage of the total coverage, e.g. `75%`
           COVERAGE_PCT=$(echo $COVERAGE_REPORT | \
             grep -oP "TOTAL\s+\d+\s+\d+\s+(\d+%)" | grep -oP "\d+%")
-          # get an indicative color
+          # get only the coverage number without the percentage symbol
           COVERAGE_NUM=$(echo $COVERAGE_PCT | grep -oP "\d+")
+
+          # get an indicative color
           if (( COVERAGE_NUM <= 50 )); then
             COVERAGE_COL="red"
           elif (( COVERAGE_NUM <= 60 )); then
@@ -62,12 +68,15 @@ jobs:
           fi
           # active branch name
           BRANCH_NAME=$(echo ${GITHUB_REF#refs/heads/})
+
           # add them to the github env for later usage
           echo "COVERAGE_PCT=$(echo $COVERAGE_PCT)" >> $GITHUB_ENV
           echo "COVERAGE_COL=$(echo $COVERAGE_COL)" >> $GITHUB_ENV
           echo "BRANCH_NAME=$(echo $BRANCH_NAME)" >> $GITHUB_ENV
 
-      - name: Upload coverage to gist
+      # Upload the coverage value to gist only once
+      - if: ${{ matrix.node-version == '3.9' }}
+        name: Upload coverage to gist
         uses: schneegans/dynamic-badges-action@v1.1.0
         with:
           auth: ${{ secrets.GIST_SECRET }}
@@ -77,7 +86,7 @@ jobs:
           message: ${{ env.COVERAGE_PCT }}
           color: ${{ env.COVERAGE_COL }}
 
-  # Release to Github and PyPi [only for `main`]
+  # Release to GitHub and PyPi [only for `main`]
   release:
     name: Semantic Release
     runs-on: ubuntu-latest
