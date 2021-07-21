@@ -7,7 +7,7 @@ name: CI
 on:
   push:
   schedule:
-    - cron: '30 9 * * *'
+    - cron: '0 1 * * 6'  # weekly run at 01:00 UTC on Saturday
 
 jobs:
   # Lint and type checking
