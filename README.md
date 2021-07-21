@@ -11,3 +11,17 @@ packaging.
 
 Some structural mechanics examples are used as dummy code:
  * computing the responses of linear elastic beams.
+
+
+### Code coverage
+
+* Solely based on using GitHub Actions, based on [this guide](https://dev.to/thejaredwilcurt/coverage-badge-with-github-actions-finally-59fa).
+* Upon each push to any of the branches a json file with coverage information is
+  added to [a dedicated gist](https://gist.github.com/rozsasarpi/da9e3419b54a0daf6fe07b934f37f837).
+* The content of the json file is used to generate a badge using https://shields.io/.
+* This badge is offered as part of the pull request template.
+* If you use the same branch name multiple times then the old coverage badges will be
+  overwritten, and in turn the old pull request badges will be incorrect (it is deemed
+  to be still acceptable since the coverage of closed pull requests are not expected to be
+  checked, but if that is needed then the correct coverage information can be obtained
+  from the pipeline prints).
