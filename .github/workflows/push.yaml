@@ -7,7 +7,7 @@ name: CI
 on:
   push:
   schedule:
-    - cron: '25 9 * * *'
+    - cron: '30 9 * * *'
 
 jobs:
   # Lint and type checking
