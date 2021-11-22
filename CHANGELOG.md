@@ -2,6 +2,10 @@
 
 <!--next-version-placeholder-->
 
+## v0.2.11 (2021-11-22)
+### Fix
+* **docs:** Resolve dependency conflict between furo and sphinx ([`2d31ec9`](https://github.com/rozsasarpi/zandbak/commit/2d31ec963bc645416002c473f1bc356819c288af))
+
 ## v0.2.10 (2021-07-21)
 ### Fix
 * Add automatic documentation (fix is used to bump version number) ([`f908b06`](https://github.com/rozsasarpi/zandbak/commit/f908b06ff287f639d20c456743486257d1f7307c))
